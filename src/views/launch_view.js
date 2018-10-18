@@ -4,6 +4,11 @@ const LaunchView = function(container){
   this.container = container;
 }
 
+LaunchView.prototype.createLaunchDetail = function(launch){
+  const launchDetail = document.create('div');
+  launchDetail.classList.add('launch-detail')
+}
+
 LaunchView.prototype.bindEvents = function(){
   PubSub.subscribe('Launches:selected-launch-ready', (evt)=>{
     const launch = evt.detail;

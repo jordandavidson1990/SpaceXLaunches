@@ -1,6 +1,6 @@
 const Launches = require('./models/launches.js');
 const ListView = require('./views/list_view.js')
-const LaunchView = require('./views/launch_view.js')
+const LaunchView = require('./views/launch_view')
 
 document.addEventListener('DOMContentLoaded', ()=> {
   // console.log('helloWorld');
