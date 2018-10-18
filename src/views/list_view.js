@@ -28,4 +28,29 @@ ListView.prototype.populate = function(launchesData){
   })
 }
 
+ListView.prototype.bindEvents = function(){
+  PubSub.subscribe('Launches:launches-data-ready', (evt) =>{
+    this.launches = evt.detail;
+    this.render();
+    this.renderLaunch();
+  });
+};
+
+ListView.prototype.render = function(){
+  this.launches.forEach((launch)=>{
+    const launchView = new LaunchView(this.container, launch);
+    launchView.render()
+  })
+};
+
+ListView.prototype.renderLaunch = function(){
+  PubSub.subscribe('Launches:launch-selected', (event)=>{
+    console.log('event.det:', event.detail);
+    this.container.innerHTML = "";
+    const launch = event.detail;
+
+  })
+}
+
+
 module.exports = ListView;

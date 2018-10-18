@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Launches = __webpack_require__(/*! ./models/launches.js */ \"./src/models/launches.js\");\nconst ListView = __webpack_require__(/*! ./views/list_view.js */ \"./src/views/list_view.js\")\n\ndocument.addEventListener('DOMContentLoaded', ()=> {\n  // console.log('helloWorld');\n\n  const launchesElement = document.querySelector('select#launch-dropdown')\n  const launchDropdown = new ListView(launchesElement)\n  launchDropdown.getData();\n  // console.log('launchesElement:', launchesElement);\n\n  const launches = new Launches();\n  launches.getData();\n\n})\n\n\n//# sourceURL=webpack:///./src/app.js?");
+eval("const Launches = __webpack_require__(/*! ./models/launches.js */ \"./src/models/launches.js\");\nconst ListView = __webpack_require__(/*! ./views/list_view.js */ \"./src/views/list_view.js\")\nconst LaunchView = __webpack_require__(/*! ./views/launch_view.js */ \"./src/views/launch_view.js\")\n\ndocument.addEventListener('DOMContentLoaded', ()=> {\n  // console.log('helloWorld');\n\n  const launchesElement = document.querySelector('select#launch-dropdown')\n  const launchDropdown = new ListView(launchesElement)\n  launchDropdown.getData();\n  // console.log('launchesElement:', launchesElement);\n\n  const launchesListContainer = document.querySelector('#launch');\n  const launchView = new LaunchView(launchesListContainer)\n  launchView.bindEvents();\n\n  const launches = new Launches();\n  launches.getData();\n\n})\n\n\n//# sourceURL=webpack:///./src/app.js?");
 
 /***/ }),
 
@@ -130,6 +130,17 @@ eval("const Request = __webpack_require__(/*! ../helpers/request.js */ \"./src/h
 
 /***/ }),
 
+/***/ "./src/views/launch_view.js":
+/*!**********************************!*\
+  !*** ./src/views/launch_view.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const PubSub = __webpack_require__(/*! ../helpers/pub_sub.js */ \"./src/helpers/pub_sub.js\");\n\nconst LaunchView = function(container){\n  this.container = container;\n}\n\nLaunchView.prototype.bindEvents = function(){\n  PubSub.subscribe('Launches:selected-launch-ready', (evt)=>{\n    const launch = evt.detail;\n    this.render(launch)\n  });\n}\n\nLaunchView.prototype.render = function(launch){\n  const infoHeading = document.createElement('h2');\n  infoHeading.textContent = launch.mission_name;\n  this.container.innerHTML = '';\n  this.container.appendChild(infoHeading);\n\n  const infoDescribtion = document.createElement('p');\n  console.log(launch);\n  infoDescribtion.textContent = launch.details;\n  this.container.appendChild(infoDescribtion)\n}\n\nmodule.exports = LaunchView;\n\n\n//# sourceURL=webpack:///./src/views/launch_view.js?");
+
+/***/ }),
+
 /***/ "./src/views/list_view.js":
 /*!********************************!*\
   !*** ./src/views/list_view.js ***!
@@ -137,7 +148,7 @@ eval("const Request = __webpack_require__(/*! ../helpers/request.js */ \"./src/h
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const PubSub = __webpack_require__(/*! ../helpers/pub_sub */ \"./src/helpers/pub_sub.js\");\nconst Request = __webpack_require__(/*! ../helpers/request */ \"./src/helpers/request.js\");\n\nconst ListView = function(container){\n  this.container = container;\n}\n\nListView.prototype.getData = function(){\n  PubSub.subscribe('Launches:launches-loaded', (event) =>{\n    const allLaunches = event.detail\n    this.populate(allLaunches);\n  });\n  this.container.addEventListener('change', (evt)=>{\n    const selectedIndex = evt.target.value;\n    console.log((event.target.value));\n    PubSub.publish('SelectView:change', selectedIndex);\n  });\n}\n\nListView.prototype.populate = function(launchesData){\n  console.log('launchesData:', launchesData);\n  launchesData.forEach((launches, index) =>{\n    const option = document.createElement('option');\n    // console.log('launches', launches);\n    option.textContent = launches.mission_name;\n    option.value = index;\n    this.container.appendChild(option);\n  })\n}\n\nmodule.exports = ListView;\n\n\n//# sourceURL=webpack:///./src/views/list_view.js?");
+eval("const PubSub = __webpack_require__(/*! ../helpers/pub_sub */ \"./src/helpers/pub_sub.js\");\nconst Request = __webpack_require__(/*! ../helpers/request */ \"./src/helpers/request.js\");\n\nconst ListView = function(container){\n  this.container = container;\n}\n\nListView.prototype.getData = function(){\n  PubSub.subscribe('Launches:launches-loaded', (event) =>{\n    const allLaunches = event.detail\n    this.populate(allLaunches);\n  });\n  this.container.addEventListener('change', (evt)=>{\n    const selectedIndex = evt.target.value;\n    console.log((event.target.value));\n    PubSub.publish('SelectView:change', selectedIndex);\n  });\n}\n\nListView.prototype.populate = function(launchesData){\n  console.log('launchesData:', launchesData);\n  launchesData.forEach((launches, index) =>{\n    const option = document.createElement('option');\n    // console.log('launches', launches);\n    option.textContent = launches.mission_name;\n    option.value = index;\n    this.container.appendChild(option);\n  })\n}\n\nListView.prototype.bindEvents = function(){\n  PubSub.subscribe('Launches:launches-data-ready', (evt) =>{\n    this.launches = evt.detail;\n    this.render();\n    this.renderLaunch();\n  });\n};\n\nListView.prototype.render = function(){\n  this.launches.forEach((launch)=>{\n    const launchView = new LaunchView(this.container, launch);\n    launchView.render()\n  })\n};\n\nListView.prototype.renderLaunch = function(){\n  PubSub.subscribe('Launches:launch-selected', (event)=>{\n    console.log('event.det:', event.detail);\n    this.container.innerHTML = \"\";\n    const launch = event.detail;\n\n  })\n}\n\n\nmodule.exports = ListView;\n\n\n//# sourceURL=webpack:///./src/views/list_view.js?");
 
 /***/ })
 

@@ -1,5 +1,6 @@
 const Launches = require('./models/launches.js');
 const ListView = require('./views/list_view.js')
+const LaunchView = require('./views/launch_view.js')
 
 document.addEventListener('DOMContentLoaded', ()=> {
   // console.log('helloWorld');
@@ -8,6 +9,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
   const launchDropdown = new ListView(launchesElement)
   launchDropdown.getData();
   // console.log('launchesElement:', launchesElement);
+
+  const launchesListContainer = document.querySelector('#launch');
+  const launchView = new LaunchView(launchesListContainer)
+  launchView.bindEvents();
 
   const launches = new Launches();
   launches.getData();
