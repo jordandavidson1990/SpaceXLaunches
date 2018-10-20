@@ -6,7 +6,7 @@ LaunchView.prototype.createLaunchDetail = function(launch){
   const launchDetail = document.createElement('div');
   launchDetail.classList.add('launch-detail');
 
-  const name = document.createElement('h3');
+  const name = document.createElement('h2');
   name.textContent = launch.mission_name;
   launchDetail.appendChild(name)
 

@@ -1,0 +1,53 @@
+.logo {
+
+}
+body{
+  font-family:monospace;
+  background-color: #2B193D;
+  color:#A49E8D;
+  width: 80%;
+  margin: auto;
+}
+
+p{
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.search {
+  font-size: 16px;
+}
+
+h2{
+  background-color:#662C91;
+  /* width: auto; */
+}
+
+.year-dropdown {
+  width: 80%;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #A49E8D;
+  background-color: #2B193D;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color;
+}
+
+.container{
+  display:flex;
+  justify-content: center;
+}
+
+h1{
+  font-family: 'Playfair Display', monospace;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+/* .launch {
+  width:80%;
+  display: center;
+} */
