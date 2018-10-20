@@ -2,30 +2,53 @@ const Request = require('../helpers/request.js');
 const PubSub = require('../helpers/pub_sub.js');
 
 const Launches = function(){
-  this.launches = [];
+  this.launchData = [];
+  this.years = [];
+};
+
+Launches.prototype.bindEvents = function(){
+  PubSub.subscribe('SelectView:change', (evt) =>{
+    const yearIndex = evt.detail;
+    this.publishLaunchesByYear(yearIndex)
+  })
 };
 
 Launches.prototype.getData = function(){
-  const url = 'https://api.spacexdata.com/v3/launches';
-  const request = new Request(url);
-  request.get().then(data => {
-    // console.log(data);
-    this.launches = data
-    PubSub.publish('Launches:launches-loaded', data);
-    console.log('data:', data);
-  })
-  PubSub.subscribe('SelectView:change', (evt) =>{
-    const selectedIndex = evt.detail;
-    // console.log('evt detail:', evt.detail);
-    this.publishDataDetail(selectedIndex);
-  })
+  const request = new Request('https://api.spacexdata.com/v3/launches')
+  request.get((data) => {
+    PubSub.publish('Launches:launches-ready', data);
+    this.publishYears(data);
+  });
 }
 
-Launches.prototype.publishDataDetail = function(selectedIndex){
-  const selectedLaunch = this.launches[selectedIndex];
-  PubSub.publish('Launches:selected-launch-ready', selectedLaunch)
+Launches.prototype.publishYears = function(data){
+  this.launchData = data;
+  this.years = this.uniqueYearList();
+  PubSub.publish('Launches:years-ready', this.years);
+}
+
+Launches.prototype.yearList = function(){
+  const fullList = this.launchData.map(launch => launch.launch_year);
+  return fullList;
+}
+
+Launches.prototype.uniqueYearList = function(){
+  return this.yearList().filter((launch, index,
+     array) =>{
+    return array.indexOf(launch) === index;
+  });
+}
+
+Launches.prototype.launchesByYear = function(yearIndex){
+  const selectedYear = this.years[yearIndex];
+  return this.launchData.filter((launch) => {
+    return launch.launch_year === selectedYear;
+  });
 };
 
-
+Launches.prototype.publishLaunchesByYear = function(yearIndex){
+  const foundLaunches = this.launchesByYear(yearIndex);
+  PubSub.publish('Launches:launches-ready', foundLaunches)
+}
 
 module.exports = Launches;

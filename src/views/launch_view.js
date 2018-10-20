@@ -1,31 +1,31 @@
-const PubSub = require('../helpers/pub_sub.js');
-
-const LaunchView = function(container){
-  this.container = container;
+// const PubSub = require('../helpers/pub_sub.js');
+const LaunchView = function(){
 }
 
 LaunchView.prototype.createLaunchDetail = function(launch){
-  const launchDetail = document.create('div');
-  launchDetail.classList.add('launch-detail')
-}
+  const launchDetail = document.createElement('div');
+  launchDetail.classList.add('launch-detail');
 
-LaunchView.prototype.bindEvents = function(){
-  PubSub.subscribe('Launches:selected-launch-ready', (evt)=>{
-    const launch = evt.detail;
-    this.render(launch)
-  });
-}
+  const name = document.createElement('h3');
+  name.textContent = launch.mission_name;
+  launchDetail.appendChild(name)
 
-LaunchView.prototype.render = function(launch){
-  const infoHeading = document.createElement('h2');
-  infoHeading.textContent = launch.mission_name;
-  this.container.innerHTML = '';
-  this.container.appendChild(infoHeading);
+  const description = document.createElement('p');
+  description.textContent = launch.details;
+  launchDetail.appendChild(description);
 
-  const infoDescribtion = document.createElement('p');
-  console.log(launch);
-  infoDescribtion.textContent = launch.details;
-  this.container.appendChild(infoDescribtion)
+  const detailsList = document.createElement('ul');
+  const flightNumber = this.createDetailListItem('Flight Number', launch.flight_number);
+  detailsList.appendChild(flightNumber);
+
+  launchDetail.appendChild(detailsList);
+  return launchDetail;
+};
+
+LaunchView.prototype.createDetailListItem = function(label, property){
+  const element = document.createElement('li');
+  element.textContent = `${label}: ${property}`;
+  return element;
 }
 
 module.exports = LaunchView;

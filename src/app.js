@@ -1,20 +1,18 @@
 const Launches = require('./models/launches.js');
-const ListView = require('./views/list_view.js')
-const LaunchView = require('./views/launch_view')
+const YearFormView = require('./views/year_form.js')
+const LaunchListView = require('./views/launch_list_view.js')
 
 document.addEventListener('DOMContentLoaded', ()=> {
-  // console.log('helloWorld');
 
-  const launchesElement = document.querySelector('select#launch-dropdown')
-  const launchDropdown = new ListView(launchesElement)
-  launchDropdown.getData();
-  // console.log('launchesElement:', launchesElement);
+  const selectElement = document.querySelector('select#year-dropdown')
+  const yearFormView = new YearFormView(selectElement);
+  yearFormView.bindEvents();
 
-  const launchesListContainer = document.querySelector('#launch');
-  const launchView = new LaunchView(launchesListContainer)
-  launchView.bindEvents();
+  const listContainer = document.querySelector('#launch-list');
+  const launchListView = new LaunchListView(listContainer);
+  launchListView.bindEvents();
 
-  const launches = new Launches();
+  const launches = new Launches;
+  launches.bindEvents();
   launches.getData();
-
 })

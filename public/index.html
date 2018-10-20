@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>SpaceX</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+  <link rel="icon" href="css/images/spacex.jpg"/>
   <script src="js/bundle.js">
   </script>
 </head>
@@ -13,14 +15,12 @@
     <h1 id="logo">SpaceX Launches</h1>
     <h3>Find the Mission</h3>
   </header>
-<label for="launch-dropdown">Find by Mission Name</label>
-  <select name="launch-dropdown" id="launch-dropdown">
-  <option selected disabled></option>
+
+  <label for="year-dropdown">Search by Year</label>
+  <select id="year-dropdown">
+    <option selected disabled></option>
   </select>
 
-  <label for="success-dropdown">Success or Failure</label>
-  <select name="success-dropdown" id="success-dropdown"></select>
-
-<div id="launch"></div>
+<div id="launch-list"></div>
 </body>
 </html>
