@@ -32,13 +32,15 @@ h2{
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: .25rem;
-  transition: border-color;
-}
-
-.container{
-  display:flex;
+  transition: 300px;
+  display: flex;
   justify-content: center;
 }
+
+/* .container{
+  display:flex;
+  justify-content: center;
+} */
 
 h1{
   font-family: 'Playfair Display', monospace;
@@ -46,6 +48,14 @@ h1{
   display: flex;
   justify-content: center;
 }
+
+.img{
+  border-radius: 50%;
+  width:100%;
+  height:auto;
+  /* transition: 300px; */
+}
+
 
 /* .launch {
   width:80%;

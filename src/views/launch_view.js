@@ -17,6 +17,15 @@ LaunchView.prototype.createLaunchDetail = function(launch){
   const detailsList = document.createElement('ul');
   const flightNumber = this.createDetailListItem('Flight Number', launch.flight_number);
   detailsList.appendChild(flightNumber);
+  const launchDate = this.createDetailListItem('Launch Date:', launch.launch_date_local);
+  detailsList.appendChild(launchDate);
+
+  const img = document.createElement('img');
+  // console.log(launch.links.mission_patch);
+  img.src = launch.links.mission_patch;
+  img.alt = `image of ${launch.mission_name}`;
+  img.id = 'patchImg';
+  this.launchDetail.appendChild(img);
 
   launchDetail.appendChild(detailsList);
   return launchDetail;
@@ -27,5 +36,12 @@ LaunchView.prototype.createDetailListItem = function(label, property){
   element.textContent = `${label}: ${property}`;
   return element;
 }
+LaunchView.prototype.getImage = function() {
+
+}
+
+// LaunchView.prototype.getImage = function(launches){
+//   for launch in launches
+// }
 
 module.exports = LaunchView;

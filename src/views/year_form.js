@@ -23,7 +23,7 @@ YearFormView.prototype.populateSelect = function(years){
     const option =
     this.createYearOption(year, index);
     this.selectElement.appendChild(option);
-    console.log('year:', year, 'years:', years);
+    // console.log('year:', year, 'years:', years);
   })
 };
 
