@@ -1,8 +1,13 @@
 const Launches = require('./models/launches.js');
 const YearFormView = require('./views/year_form.js')
 const LaunchListView = require('./views/launch_list_view.js')
+const NameSelect = require('./views/name_select.js')
 
 document.addEventListener('DOMContentLoaded', ()=> {
+
+  const selectName = document.querySelector('select#name-dropdown')
+  const nameSelect = new NameSelect(selectName);
+  nameSelect.bindEvents();
 
   const selectElement = document.querySelector('select#year-dropdown')
   const yearFormView = new YearFormView(selectElement);

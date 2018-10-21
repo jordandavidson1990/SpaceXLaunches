@@ -11,12 +11,18 @@
   </script>
 </head>
 <body>
+  <!-- <nav>SpaceX Launches</nav> -->
   <header>
-    <img class="img" src="css/images/spacex.jpg" alt="spaceX">
+    <img class="logo" src="css/images/spacex.jpg" alt="spaceX">
     <link rel="icon" href="css/images/spacex.jpg"/>
     <h1 id="logo">SpaceX Launches</h1>
     <h2>Find the Mission</h2>
   </header>
+
+  <label class="search" for="name-dropdown">Search by Mission Name</label>
+  <select class="name-dropdown" id="name-dropdown">
+    <option selected disabled></option>
+  </select>
 
   <label class="search" for="year-dropdown">Search by Year</label>
   <select class="year-dropdown" id="year-dropdown">

@@ -4,6 +4,7 @@ const PubSub = require('../helpers/pub_sub.js');
 const Launches = function(){
   this.launchData = [];
   this.years = [];
+  this.names = []
 };
 
 Launches.prototype.bindEvents = function(){
@@ -18,14 +19,25 @@ Launches.prototype.getData = function(){
   request.get((data) => {
     PubSub.publish('Launches:launches-ready', data);
     this.publishYears(data);
+    this.publishName(data);
   });
 }
+
+Launches.prototype.publishName = function(data) {
+  this.launchData = data;
+  this.names = this.nameList();
+  PubSub.publish('Launches:names-ready', this.names);
+}
+
+Launches.prototype.nameList = function() {
+    const nameList = this.launchData.map(launch => launch.mission_name);
+    return nameList;
+};
 
 Launches.prototype.publishYears = function(data){
   this.launchData = data;
   this.years = this.uniqueYearList();
   PubSub.publish('Launches:years-ready', this.years);
-  console.log(data);
 }
 
 Launches.prototype.yearList = function(){
@@ -37,7 +49,6 @@ Launches.prototype.uniqueYearList = function(){
   return this.yearList().filter((launch, index,
      array) =>{
     return array.indexOf(launch) === index;
-    console.log('launch:', launch, 'index:', index, 'array:', array);
   });
 }
 
