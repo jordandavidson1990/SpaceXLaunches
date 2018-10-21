@@ -11,7 +11,7 @@ nav .active{
 }
 
 body{
-    background-image: url("css/images/spacex.jpg");
+  background-image: url("css/images/spacex.jpg");
   font-family:monospace;
   background-color: #7C7C7C;
   color:#453750;
@@ -22,6 +22,9 @@ body{
 p{
   font-size: 16pt;
   font-weight: bold;
+  text-align: justify;
+  width:80%;
+  margin:auto;
 }
 
 .search {
@@ -35,9 +38,12 @@ p{
 li{
   font-size: 18px;
   font-weight: bold;
+  width:80%;
+  margin:auto;
 }
 
 h2{
+  color: #C4BBB8;
   border:1px solid #C4BBB8;
   background-color:#344E41;
   /* width: auto; */
@@ -45,12 +51,15 @@ h2{
   text-align: center;
   font-size: 22px;
   font-weight: bold;
+  text-shadow: 1px 1px #595959;
 }
 
 label{
   border: 2px solid #344E41;
   border-radius: 25px;
+  transition: 300px;
   background-color: #C4BBB8;
+  background-clip:padding-box;
   width: 80%;
   margin: auto;}
 
@@ -86,14 +95,23 @@ h1{
   justify-content: center;
   border: 4px solid #39375B;
   border-width: 5px;
-  border-spacing: 90px;
+  border-spacing: auto;
   border-radius: 80%;
   background:#C4BBB8;
   text-align: center;
+  /* text-shadow: 1px 1px 5px darkgrey; */
 }
 
 div.launch-detail{
   width:auto%;
+}
+html{
+  border: 10px double #7F7F7F;
+  border-style: double;
+  /* radius:50%; */
+  padding-top: 20px;
+  background-color: #595959;
+
 }
 img{
   text-align: center;
@@ -102,7 +120,6 @@ img{
   margin-right: auto;
   width:40%;
 }
-
 
 .logo{
   border:1px solid #C4BBB8;
