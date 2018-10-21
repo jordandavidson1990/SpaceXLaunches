@@ -20,6 +20,8 @@ LaunchView.prototype.createLaunchDetail = function(launch){
   const launchDate = this.createDetailListItem('Launch Date:', launch.launch_date_local);
   detailsList.appendChild(launchDate);
 
+
+// IMAGE ISSUES
   const img = document.createElement('img');
   // console.log(launch.links.mission_patch);
   img.src = launch.links.mission_patch;

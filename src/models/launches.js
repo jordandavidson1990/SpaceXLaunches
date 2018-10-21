@@ -18,7 +18,6 @@ Launches.prototype.getData = function(){
   request.get((data) => {
     PubSub.publish('Launches:launches-ready', data);
     this.publishYears(data);
-    // this.getImage(data)
   });
 }
 
