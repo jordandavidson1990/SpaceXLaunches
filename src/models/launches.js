@@ -10,20 +10,13 @@ const Launches = function(){
 Launches.prototype.bindEvents = function(){
   PubSub.subscribe('SelectView:change', (evt) =>{
     const yearIndex = evt.detail;
-    debugger
-    // this.publishLaunchesByName(yearIndex)
     this.publishLaunchesByYear(yearIndex)
   })
   PubSub.subscribe('SelectView:nameChange', (evt) => {
     const nameIndex = evt.detail
-    // debugger
     this.publishLaunchesByName(nameIndex)
   })
 };
-
-// Launches.prototype.bindEvents = function(){
-//
-// }
 
 Launches.prototype.getData = function(){
   const request = new Request('https://api.spacexdata.com/v3/launches')
