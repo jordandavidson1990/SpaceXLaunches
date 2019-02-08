@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   const selectElement = document.querySelector('select#year-dropdown')
   const yearFormView = new YearFormView(selectElement);
+  // debugger
   yearFormView.bindEvents();
+  // debugger
 
   const listContainer = document.querySelector('#launch-list');
   const launchListView = new LaunchListView(listContainer);

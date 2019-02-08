@@ -10,8 +10,10 @@ NameSelect.prototype.bindEvents = function(){
   })
 
   this.selectName.addEventListener('change', (evt) =>{
+    // debugger
     const selectedIndex = evt.target.value;
-    PubSub.publish('SelectView:change', selectedIndex);
+    PubSub.publish('SelectView:nameChange', selectedIndex);
+    // debugger
   })
 }
 

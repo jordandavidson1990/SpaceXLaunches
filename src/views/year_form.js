@@ -16,6 +16,7 @@ YearFormView.prototype.bindEvents = function(){
   this.selectElement.addEventListener('change', (evt) => {
     const selectedIndex = evt.target.value;
     // console.log(evt.target.value);
+    debugger
     PubSub.publish('SelectView:change', selectedIndex);
   });
 };

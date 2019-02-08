@@ -10,9 +10,20 @@ const Launches = function(){
 Launches.prototype.bindEvents = function(){
   PubSub.subscribe('SelectView:change', (evt) =>{
     const yearIndex = evt.detail;
+    debugger
+    // this.publishLaunchesByName(yearIndex)
     this.publishLaunchesByYear(yearIndex)
   })
+  PubSub.subscribe('SelectView:nameChange', (evt) => {
+    const nameIndex = evt.detail
+    // debugger
+    this.publishLaunchesByName(nameIndex)
+  })
 };
+
+// Launches.prototype.bindEvents = function(){
+//
+// }
 
 Launches.prototype.getData = function(){
   const request = new Request('https://api.spacexdata.com/v3/launches')
@@ -59,8 +70,20 @@ Launches.prototype.launchesByYear = function(yearIndex){
   });
 };
 
+Launches.prototype.launchesByName = function(name){
+  const selectedName = this.names[name];
+  return this.launchData.filter((launch) => {
+    return launch.mission_name == selectedName;
+  })
+}
+
 Launches.prototype.publishLaunchesByYear = function(yearIndex){
   const foundLaunches = this.launchesByYear(yearIndex);
+  PubSub.publish('Launches:launches-ready', foundLaunches)
+}
+
+Launches.prototype.publishLaunchesByName = function(name){
+  const foundLaunches = this.launchesByName(name);
   PubSub.publish('Launches:launches-ready', foundLaunches)
 }
 
